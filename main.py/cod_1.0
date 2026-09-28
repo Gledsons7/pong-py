@@ -1,0 +1,18 @@
+import pygame
+import sys
+
+pygame.init()
+
+# Tamanho da janela
+LARGURA = 800
+ALTURA = 600
+
+# Cria a janela
+tela = pygame.display.set_mode((LARGURA, ALTURA))
+pygame.display.set_caption("Ping Pong")
+
+# Controle da velocidade do jogo
+clock = pygame.time.Clock()
+
+# Diz se o jogo está rodando
+rodando = True
