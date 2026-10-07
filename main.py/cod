@@ -16,3 +16,21 @@ clock = pygame.time.Clock()
 
 # Diz se o jogo está rodando
 rodando = True
+
+while rodando:
+  #eventos
+  for eventos in pygame.init.get():
+    if eventos.type == pygame.QUIT
+     rodando = false
+
+   #cor de fundo
+  tela.fill ((128,0,128))
+
+  #atualiza tela
+  pygame.display.flip()
+
+  #limita o fps do jogo
+
+  clock.tik(60)
+pygame.quit()
+sys exit()
