@@ -46,3 +46,10 @@ raquete2_y = 250
 raquete_largura = 20
 raquete_altura = 100
 
+# Posição da bola
+bola_x = 400
+bola_y = 300
+
+# Tamanho da bola
+bola_tamanho = 20
+
