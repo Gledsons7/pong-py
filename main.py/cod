@@ -34,3 +34,15 @@ while rodando:
   clock.tik(60)
 pygame.quit()
 sys exit()
+
+# Posições das raquetes
+raquete1_x = 30
+raquete1_y = 250
+
+raquete2_x = 750
+raquete2_y = 250
+
+# Tamanho das raquetes
+raquete_largura = 20
+raquete_altura = 100
+
