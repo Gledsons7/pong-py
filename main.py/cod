@@ -53,3 +53,14 @@ bola_y = 300
 # Tamanho da bola
 bola_tamanho = 20
 
+# Velocidade da bola
+bola_velocidade_x = 5
+bola_velocidade_y = 5
+
+# Velocidade das raquetes
+velocidade_raquete = 6
+
+# Cores
+branco = (255, 255, 255)
+preto = (0, 0, 0)
+
