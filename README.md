@@ -1,64 +1,117 @@
-#pinpong 
+🎮 Ping Pong — Jogo desenvolvido em Python
 
-#Descrição 
-# 🏓 Ping Pong
+📌 Sobre o projeto
 
-## 📌 Descrição
+Este projeto consiste em uma versão do clássico jogo **Ping Pong (Pong)**, desenvolvida utilizando a linguagem Python e a biblioteca Pygame.
 
-Este projeto consiste no desenvolvimento de um jogo de Ping Pong utilizando Python.
+O jogo permite que dois jogadores disputem uma partida em tempo real, controlando suas respectivas raquetes para rebater a bola e marcar pontos contra o adversário.
 
-O jogo será baseado no clássico jogo de tênis de mesa, onde os jogadores controlam duas raquetes e devem rebater a bola para o lado adversário.
+O objetivo é alcançar 5 pontos primeiro para vencer a partida.
 
-## 🎯 Objetivo
+🎯 Objetivo
 
-O objetivo do projeto é desenvolver um jogo simples e funcional, utilizando conceitos de programação e desenvolvimento de jogos.
+Desenvolver um jogo interativo aplicando conceitos fundamentais de programação, como:
 
-Durante o desenvolvimento serão trabalhados conceitos como:
-
+- Variáveis e tipos de dados;
+- Estruturas condicionais;
 - Estruturas de repetição;
-- Condicionais;
-- Variáveis;
 - Funções;
-- Movimentação de objetos;
+- Manipulação de eventos;
 - Detecção de colisões;
-- Sistema de pontuação;
-- Eventos do teclado;
-- Biblioteca Pygame.
+- Lógica de programação.
 
-## 🎮 Funcionamento do jogo
+⚙️ Funcionalidades
 
-O jogo contará com:
+- [x] Modo para dois jogadores.
+- [x] Controle individual das raquetes.
+- [x] Movimentação automática da bola.
+- [x] Detecção de colisões.
+- [x] Sistema automático de pontuação.
+- [x] Limite de 5 pontos para vencer.
+- [x] Tela de vitória.
+- [x] Reinicialização da partida.
+- [x] Limitação de movimento das raquetes dentro da tela.
 
-- Duas raquetes;
-- Uma bola;
-- Movimentação das raquetes;
-- Movimentação da bola;
-- Colisão entre a bola e as raquetes;
-- Colisão da bola com as bordas da tela;
-- Sistema de pontuação;
-- Condição de vitória.
+🛠️ Tecnologias utilizadas
 
-## 🕹️ Controles
+| Tecnologia | Utilização |
+|---|---|
+| Python | Linguagem principal do projeto. |
+| Pygame | Criação da interface gráfica e mecânicas do jogo. |
 
-### Jogador 1
-- `W` → mover para cima
-- `S` → mover para baixo
+## 🎮 Controles
 
-### Jogador 2
-- `↑` → mover para cima
-- `↓` → mover para baixo
+Jogador 1
+- `W` — Movimentar a raquete para cima.
+- `S` — Movimentar a raquete para baixo.
 
-## 🛠️ Tecnologias utilizadas
+Jogador 2
+- `↑` — Movimentar a raquete para cima.
+- `↓` — Movimentar a raquete para baixo.
 
-- Python
-- Pygame
-- GitHub
+Outros comandos
+- `ESPAÇO` — Reiniciar a partida após o término.
 
-## 📂 Estrutura do projeto
+🚀 Como executar o projeto
 
-```text
-ping-pong/
+1. Pré-requisitos
+
+É necessário ter o Python instalado na máquina.
+
+2. Instalar a biblioteca
+
+Abra o terminal e execute:
+
+```bash
+pip install pygame
+```
+
+3. Clonar o repositório
+
+```bash
+git clone URL_DO_SEU_REPOSITORIO
+```
+
+Entre na pasta do projeto:
+
+```bash
+cd nome-do-projeto
+```
+
+4. Executar o jogo
+
+```bash
+python ping_pong.py
+```
+
+🏆 Regras do jogo
+
+1. Dois jogadores controlam suas respectivas raquetes.
+2. O objetivo é rebater a bola e impedir que ela ultrapasse sua raquete.
+3. Quando a bola ultrapassa o limite lateral do adversário, um ponto é marcado.
+4. A bola retorna ao centro após cada pontuação.
+5. O primeiro jogador a alcançar 5 pontos vence.
+6. Após a vitória, é possível iniciar uma nova partida pressionando a tecla ESPAÇO.
+
+📂 Estrutura do projeto
+
+```
+PING-PONG/
 │
-├── README.md
-├── main.py
-└── ...
+├── ping_pong.py
+└── README.md
+```
+
+📚 Aprendizados
+
+O desenvolvimento deste projeto proporcionou a aplicação prática de conceitos de lógica de programação e Python, especialmente na criação de funções, movimentação de objetos, manipulação de eventos, detecção de colisões e construção de interfaces gráficas.
+
+👨‍💻 Autor
+
+**Gledson do Nascimento Silva**
+
+Estudante de Engenharia de Software — Universidade Federal do Cariri (UFCA).
+
+---
+
+⭐ Projeto desenvolvido com finalidade educacional e prática de programação.
