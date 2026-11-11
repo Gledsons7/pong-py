@@ -1,66 +1,229 @@
 import pygame
+import random
 import sys
 
+# Inicialização
 pygame.init()
 
-# Tamanho da janela
-LARGURA = 800
+# Configurações da tela
+LARGURA = 900
 ALTURA = 600
-
-# Cria a janela
-tela = pygame.display.set_mode((LARGURA, ALTURA))
+TELA = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption("Ping Pong")
 
-# Controle da velocidade do jogo
-clock = pygame.time.Clock()
-
-# Diz se o jogo está rodando
-rodando = True
-
-while rodando:
-  #eventos
-  for eventos in pygame.init.get():
-    if eventos.type == pygame.QUIT
-     rodando = false
-
-   #cor de fundo
-  tela.fill ((128,0,128))
-
-  #atualiza tela
-  pygame.display.flip()
-
-  #limita o fps do jogo
-
-  clock.tik(60)
-pygame.quit()
-sys exit()
-
-# Posições das raquetes
-raquete1_x = 30
-raquete1_y = 250
-
-raquete2_x = 750
-raquete2_y = 250
-
-# Tamanho das raquetes
-raquete_largura = 20
-raquete_altura = 100
-
-# Posição da bola
-bola_x = 400
-bola_y = 300
-
-# Tamanho da bola
-bola_tamanho = 20
-
-# Velocidade da bola
-bola_velocidade_x = 5
-bola_velocidade_y = 5
-
-# Velocidade das raquetes
-velocidade_raquete = 6
-
 # Cores
-branco = (255, 255, 255)
-preto = (0, 0, 0)
+PRETO = (15, 15, 20)
+BRANCO = (255, 255, 255)
+AZUL = (40, 130, 255)
+VERMELHO = (255, 70, 70)
+CINZA = (100, 100, 100)
 
+# FPS
+RELOGIO = pygame.time.Clock()
+FPS = 60
+
+# Fontes
+FONTE = pygame.font.SysFont("Arial", 40)
+FONTE_PEQUENA = pygame.font.SysFont("Arial", 25)
+
+# Raquetes
+LARG_RAQUETE = 15
+ALT_RAQUETE = 100
+VELOCIDADE_RAQUETE = 7
+
+jogador1 = pygame.Rect(
+    30, ALTURA // 2 - ALT_RAQUETE // 2,
+    LARG_RAQUETE, ALT_RAQUETE
+)
+
+jogador2 = pygame.Rect(
+    LARGURA - 45, ALTURA // 2 - ALT_RAQUETE // 2,
+    LARG_RAQUETE, ALT_RAQUETE
+)
+
+# Bola
+TAM_BOLA = 15
+bola = pygame.Rect(
+    LARGURA // 2 - TAM_BOLA // 2,
+    ALTURA // 2 - TAM_BOLA // 2,
+    TAM_BOLA, TAM_BOLA
+)
+
+velocidade_x = 6
+velocidade_y = 5
+
+# Placar
+pontos1 = 0
+pontos2 = 0
+PONTOS_VITORIA = 5
+
+fim_de_jogo = False
+vencedor = ""
+
+
+def reiniciar_bola(direcao):
+    global velocidade_x, velocidade_y
+
+    bola.center = (LARGURA // 2, ALTURA // 2)
+
+    velocidade_x = 6 * direcao
+    velocidade_y = random.choice([-5, 5])
+
+
+def desenhar():
+    TELA.fill(PRETO)
+
+    # Linha central
+    pygame.draw.line(
+        TELA, CINZA,
+        (LARGURA // 2, 0),
+        (LARGURA // 2, ALTURA), 2
+    )
+
+    # Raquetes
+    pygame.draw.rect(TELA, AZUL, jogador1)
+    pygame.draw.rect(TELA, VERMELHO, jogador2)
+
+    # Bola
+    pygame.draw.ellipse(TELA, BRANCO, bola)
+
+    # Placar
+    placar = FONTE.render(
+        f"{pontos1}       {pontos2}", True, BRANCO
+    )
+    TELA.blit(placar, (LARGURA // 2 - 110, 30))
+
+    # Instruções
+    instrucoes = FONTE_PEQUENA.render(
+        "Jogador 1: W / S     Jogador 2: SETAS",
+        True, BRANCO
+    )
+    TELA.blit(instrucoes, (LARGURA // 2 - 220, ALTURA - 35))
+
+    if fim_de_jogo:
+        mensagem = FONTE.render(
+            f"{vencedor} venceu!", True, BRANCO
+        )
+        TELA.blit(
+            mensagem,
+            (LARGURA // 2 - mensagem.get_width() // 2,
+             ALTURA // 2 - 60)
+        )
+
+        reiniciar = FONTE_PEQUENA.render(
+            "Pressione ESPACO para jogar novamente",
+            True, BRANCO
+        )
+        TELA.blit(
+            reiniciar,
+            (LARGURA // 2 - reiniciar.get_width() // 2,
+             ALTURA // 2 + 10)
+        )
+
+    pygame.display.update()
+
+
+def mover_jogadores():
+    teclas = pygame.key.get_pressed()
+
+    # Jogador 1
+    if teclas[pygame.K_w]:
+        jogador1.y -= VELOCIDADE_RAQUETE
+
+    if teclas[pygame.K_s]:
+        jogador1.y += VELOCIDADE_RAQUETE
+
+    # Jogador 2
+    if teclas[pygame.K_UP]:
+        jogador2.y -= VELOCIDADE_RAQUETE
+
+    if teclas[pygame.K_DOWN]:
+        jogador2.y += VELOCIDADE_RAQUETE
+
+    # Impedir que as raquetes saiam da tela
+    jogador1.y = max(0, min(
+        jogador1.y, ALTURA - ALT_RAQUETE
+    ))
+
+    jogador2.y = max(0, min(
+        jogador2.y, ALTURA - ALT_RAQUETE
+    ))
+
+
+def mover_bola():
+    global velocidade_x, velocidade_y
+    global pontos1, pontos2, fim_de_jogo, vencedor
+
+    bola.x += velocidade_x
+    bola.y += velocidade_y
+
+    # Colisão com o teto e o chão
+    if bola.top <= 0 or bola.bottom >= ALTURA:
+        velocidade_y *= -1
+
+    # Colisão com a raquete do jogador 1
+    if bola.colliderect(jogador1) and velocidade_x < 0:
+        velocidade_x *= -1
+        velocidade_x *= 1.05
+
+    # Colisão com a raquete do jogador 2
+    if bola.colliderect(jogador2) and velocidade_x > 0:
+        velocidade_x *= -1
+        velocidade_x *= 1.05
+
+    # Ponto do jogador 2
+    if bola.left <= 0:
+        pontos2 += 1
+        reiniciar_bola(1)
+
+    # Ponto do jogador 1
+    if bola.right >= LARGURA:
+        pontos1 += 1
+        reiniciar_bola(-1)
+
+    # Verificar vencedor
+    if pontos1 >= PONTOS_VITORIA:
+        vencedor = "Jogador 1"
+        fim_de_jogo = True
+
+    elif pontos2 >= PONTOS_VITORIA:
+        vencedor = "Jogador 2"
+        fim_de_jogo = True
+
+
+def reiniciar_jogo():
+    global pontos1, pontos2, fim_de_jogo, vencedor
+
+    pontos1 = 0
+    pontos2 = 0
+    fim_de_jogo = False
+    vencedor = ""
+
+    jogador1.centery = ALTURA // 2
+    jogador2.centery = ALTURA // 2
+
+    reiniciar_bola(random.choice([-1, 1]))
+
+
+# Loop principal do jogo
+reiniciar_bola(random.choice([-1, 1]))
+
+while True:
+
+    for evento in pygame.event.get():
+
+        if evento.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+        if evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_SPACE and fim_de_jogo:
+                reiniciar_jogo()
+
+    if not fim_de_jogo:
+        mover_jogadores()
+        mover_bola()
+
+    desenhar()
+
+    RELOGIO.tick(FPS)
